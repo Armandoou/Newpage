@@ -11,19 +11,19 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
 
 export default function DrawerA({ onSortChange, onLimitChange }) {
   const [limit, setLimit] = React.useState(100);
+  const [open, setOpen] = React.useState(false); // Estado para mostrar/ocultar el drawer
 
-  
   const handleSliderChange = (e, newValue) => {
     setLimit(newValue);
     onLimitChange(newValue);
   };
 
-  
   const handleInputChange = (e) => {
     const value = e.target.value === '' ? '' : Number(e.target.value);
     setLimit(value);
@@ -32,9 +32,19 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
     }
   };
 
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+
+      {/* Botón para abrir/ocultar el drawer */}
+      <Button variant="contained" onClick={toggleDrawer} sx={{ position: 'fixed', top: 16, right: 16, zIndex: 1300 }}>
+        {open ? 'Ocultar Opciones' : 'Mostrar Opciones'}
+      </Button>
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -45,8 +55,10 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
             p: 2,
           },
         }}
-        variant="permanent"
+        variant="temporary" // Lo cambiamos a temporal para que se pueda ocultar
         anchor="right"
+        open={open} // Controlado por el estado
+        onClose={toggleDrawer} // Permite cerrar tocando fuera del drawer
       >
         <Toolbar />
         <Typography variant="h6" sx={{ mb: 2 }}>
@@ -54,7 +66,6 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
         </Typography>
         <Divider />
 
-        
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={() => onSortChange('asc')}>
@@ -70,10 +81,8 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
 
         <Divider sx={{ my: 2 }} />
 
-        
         <Typography gutterBottom>Límite: {limit}</Typography>
 
-        
         <Slider
           value={typeof limit === 'number' ? limit : 0}
           onChange={handleSliderChange}
@@ -85,7 +94,6 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
           valueLabelDisplay="auto"
         />
 
-        
         <TextField
           label="Ingresar límite"
           type="number"
@@ -104,4 +112,5 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
     </Box>
   );
 }
+
 
