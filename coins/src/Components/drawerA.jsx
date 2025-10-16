@@ -17,7 +17,7 @@ const drawerWidth = 240;
 
 export default function DrawerA({ onSortChange, onLimitChange }) {
   const [limit, setLimit] = React.useState(100);
-  const [open, setOpen] = React.useState(false); // Estado para mostrar/ocultar el drawer
+  const [open, setOpen] = React.useState(false); 
 
   const handleSliderChange = (e, newValue) => {
     setLimit(newValue);
@@ -40,7 +40,7 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      {/* Botón para abrir/ocultar el drawer */}
+      
       <Button variant="contained" onClick={toggleDrawer} sx={{ position: 'fixed', top: 16, right: 16, zIndex: 1300 }}>
         {open ? 'Ocultar Opciones' : 'Mostrar Opciones'}
       </Button>
@@ -55,10 +55,10 @@ export default function DrawerA({ onSortChange, onLimitChange }) {
             p: 2,
           },
         }}
-        variant="temporary" // Lo cambiamos a temporal para que se pueda ocultar
+        variant="temporary" 
         anchor="right"
-        open={open} // Controlado por el estado
-        onClose={toggleDrawer} // Permite cerrar tocando fuera del drawer
+        open={open} 
+        onClose={toggleDrawer} 
       >
         <Toolbar />
         <Typography variant="h6" sx={{ mb: 2 }}>
